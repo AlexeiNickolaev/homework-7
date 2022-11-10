@@ -51,16 +51,26 @@ void PrintMatrix(int[,] matrix)
 // В двумерном массиве заменить элементы, у которых оба индекса чётные на их квадраты
 void ChangeElementMatrix(int[,] matrix)
 {
-    for (int i = 0; i < matrix.GetLength(0); i++)
+    for (int i = 0; i < matrix.GetLength(0); i+=2)
     {
-        for (int j = 0; j < matrix.GetLength(1); j++)
+        for (int j = 0; j < matrix.GetLength(1); j+=2)
         {
-            if (i % 2 == 0 && j % 2 == 0)
-            {
-                matrix[i, j] *= matrix[i, j];
-            }
+            matrix[i, j] *= matrix[i, j];
         }
     }
+}
+// В матрице чисел найти сумму элементов главной диагонали
+int SumElementMatrix(int[,] matrix)
+{
+    int sum = default;
+    int length = 0;
+    if (matrix.GetLength(0) > matrix.GetLength(1)) length = 1;
+
+    for (int i = 0; i < matrix.GetLength(length); i++)
+    {
+       sum += matrix[i, i];
+    }
+    return sum;
 }
 
 Console.WriteLine("Показать двумерный массив размером m x n заполненный вещественными числами");
@@ -85,7 +95,9 @@ PrintMatrix(matrix);
 Console.WriteLine();
 ChangeElementMatrix(matrix);
 PrintMatrix(matrix);
-
 Console.WriteLine();
 
-Console.WriteLine();
+Console.WriteLine("В матрице чисел найти сумму элементов главной диагонали");
+PrintMatrix(matrix);
+SumElementMatrix(matrix);
+Console.WriteLine($"Сумма элементов главной диагонали равна {SumElementMatrix(matrix)}");
