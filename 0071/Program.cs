@@ -22,7 +22,7 @@ void PrintMatrixDouble(double[,] matrix)
     }
 }
 // Задать двумерный массив следующим правилом: Amn = m+n
-int[,] CreateMatrixAnm(int rows, int columns)
+int[,] CreateMatrix(int rows, int columns)
 {
     int[,] matrix = new int[rows, columns];
 
@@ -35,7 +35,7 @@ int[,] CreateMatrixAnm(int rows, int columns)
     }
     return matrix;
 }
-void PrintMatrixAnm(int[,] matrix)
+void PrintMatrix(int[,] matrix)
 {
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
@@ -46,6 +46,20 @@ void PrintMatrixAnm(int[,] matrix)
             else Console.Write($"{matrix[i, j]}");
         }
         Console.WriteLine("]");
+    }
+}
+// В двумерном массиве заменить элементы, у которых оба индекса чётные на их квадраты
+void ChangeElementMatrix(int[,] matrix)
+{
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            if (i % 2 == 0 && j % 2 == 0)
+            {
+                matrix[i, j] *= matrix[i, j];
+            }
+        }
     }
 }
 
@@ -62,6 +76,16 @@ PrintMatrixDouble(matrixD);
 Console.WriteLine();
 
 Console.WriteLine("Задать двумерный массив следующим правилом: Amn = m+n");
-int[,]matrixAnm=CreateMatrixAnm(4, 4 );
-PrintMatrixAnm(matrixAnm);
+int[,] matrix = CreateMatrix(4, 4);
+PrintMatrix(matrix);
+Console.WriteLine();
+
+Console.WriteLine("В двумерном массиве заменить элементы, у которых оба индекса чётные на их квадраты");
+PrintMatrix(matrix);
+Console.WriteLine();
+ChangeElementMatrix(matrix);
+PrintMatrix(matrix);
+
+Console.WriteLine();
+
 Console.WriteLine();
