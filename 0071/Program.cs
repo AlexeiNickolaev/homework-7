@@ -62,7 +62,7 @@ void ChangeElementMatrix(int[,] matrix)
 // В матрице чисел найти сумму элементов главной диагонали
 int SumElementMatrix(int[,] matrix)
 {
-    int sum = default;
+    int sum = 0;
     int length = 0;
     if (matrix.GetLength(0) > matrix.GetLength(1)) length = 1;
 
@@ -76,18 +76,74 @@ int SumElementMatrix(int[,] matrix)
 // или указать, что такого элемента нет
 string NumberPosition(int[,] matrix, int number)
 {
-    string position=string.Empty;
+    string position = string.Empty;
 
     for (int i = 0; i < matrix.GetLength(0); i++)
     {
         for (int j = 0; j < matrix.GetLength(1); j++)
         {
-            if (matrix[i, j] == number)position= $"Позиция числа ({i}, {j});";
-            else if(position==string.Empty) position="Такого числа нет";
-        }  
+            if (matrix[i, j] == number) position = $"Позиция числа ({i}, {j});";
+            else if (position == string.Empty) position = "Такого числа нет";
+        }
     }
     return position;
-}   
+}
+// Дан целочисленный массив. Найти среднее арифметическое каждого из столбцов.
+string AverageColumns(int[,] matrix)
+{
+    string result = string.Empty;
+    double sum = 0;
+    for (int j = 0; j < matrix.GetLength(1); j++)
+    {
+        for (int i = 0; i < matrix.GetLength(0); i++)
+        {
+            sum += matrix[i, j];
+        }
+        sum = sum / matrix.GetLength(0);
+        result = $"Среднее арифметическое {j} столбца = {sum}";
+        sum = 0;
+    }
+    return result;
+}
+// Написать программу, которая обменивает элементы первой строки и последней строки
+
+void ChangeElementsRows(int[,]matrix)
+{
+    int temp=0;
+    int i=0;
+    for (int j = 0; j < matrix.GetLength(1); j++)
+    {
+        temp=matrix[i, j];
+        matrix[i, j]=matrix[matrix.GetLength(0)-1, j];
+        matrix[matrix.GetLength(0)-1, j]= temp;
+    }
+}
+// В прямоугольной матрице найти строку с наименьшей суммой элементов.
+int MinSum(int[,] matrix)
+{
+    int sum = 0;
+    int minSum = 0;
+    int minIndex = 0;
+    for (int i = 0; i < matrix.GetLength(0); i++)
+    {
+        for (int j = 0; j < matrix.GetLength(1); j++)
+        {
+            if (i == 0) 
+            {
+                sum += matrix[i, j];
+                minSum += matrix[i, j]; 
+            }
+            else sum +=matrix[i, j]; 
+        }
+        if (sum < minSum)
+        {
+            minSum = sum;
+            minIndex = i;
+        }
+        sum = 0;
+    }
+    return minIndex;
+}
 
 Console.WriteLine("Показать двумерный массив размером m x n заполненный вещественными числами");
 Console.WriteLine("Количество строк: ");
@@ -134,4 +190,24 @@ int number = int.Parse(Console.ReadLine() ?? "0");
 PrintMatrix(matrix);
 NumberPosition(matrix, number);
 Console.WriteLine(NumberPosition(matrix, number));
+Console.ReadKey();
+Console.Clear();
 
+Console.WriteLine("Дан целочисленный массив. Найти среднее арифметическое каждого из столбцов.");
+PrintMatrix(matrix);
+Console.WriteLine($"{AverageColumns(matrix)}");
+Console.ReadKey();
+Console.Clear();
+
+Console.WriteLine("Написать программу, которая обменивает элементы первой строки и последней строки");
+PrintMatrix(matrix);
+Console.WriteLine();
+ChangeElementsRows(matrix);
+PrintMatrix(matrix);
+Console.ReadKey();
+Console.Clear();
+
+Console.WriteLine("В прямоугольной матрице найти строку с наименьшей суммой элементов.");
+PrintMatrix(matrix);
+MinSum(matrix);
+Console.WriteLine($"Строка с минимальной суммой под номером {MinSum(matrix)+1}");
